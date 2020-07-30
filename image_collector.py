@@ -8,7 +8,7 @@ Buildings = {}
 def fill_Library():
 # input the name of folder containing images
     folderName = input("enter filename containing images ")
-    directory = '/Users/iankim/Desktop/Python_proj/p6-ort/' + folderName
+    directory = '/Users/iankim/Desktop/Python_proj/p6-computervis/' + folderName
 # open for user
     for fileName in os.listdir(directory):
         im = Image.open(directory +'/'+ fileName)

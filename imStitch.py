@@ -4,7 +4,7 @@ import os
 from matplotlib import pyplot as plt
 
 def combine_prokudin(imName):
-     file = '/Users/iankim/Desktop/Python_proj/p6-ort/prokudin-gorskii/' + imName
+     file = '/Users/iankim/Desktop/Python_proj/p6-computervis/prokudin-gorskii/' + imName
      img = imageio.imread(file)
      num_rows = np.shape(img)[0]
      num_cols = np.shape(img)[1]
@@ -28,7 +28,7 @@ def standardize(array):
 
 
 def image_patches(image,patch_size=(16, 16)):
-     file = '/Users/iankim/Desktop/Python_proj/p6-ort/' + image
+     file = '/Users/iankim/Desktop/Python_proj/p6-computervis/' + image
      img = imageio.imread(file)
      
      num_patches_horizontal = int(np.shape(img)[1]/patch_size[1])
@@ -56,19 +56,16 @@ def med_filter(image,x_pos,y_pos):
      array = image[(x_pos -1) : (x_pos + 1), (y_pos-1): (y_pos + 1)]
      return np.median(array)
 
-def edge_detect(image):
-     return np.gradient(image)
-
 
 def filter_image(image):
-     file = '/Users/iankim/Desktop/Python_proj/p6-ort/' + image
+     file = '/Users/iankim/Desktop/Python_proj/p6-computervis/' + image
      img = imageio.imread(file)
      num_cols = np.shape(img)[1]
      num_rows = np.shape(img)[0]
 
      for i in range(1,num_rows - 1):
           for j in range(1,num_cols - 1):
-               img[i][j] = avg_filter(img,i,j)
+               img[i][j] = med_filter(img,i,j)
      print(img)
      plt.imshow(img)
      plt.show()
@@ -82,6 +79,7 @@ def main():
      #combine_prokudin(name)
      #image_patches(name)
      filter_image(name)
+     
 
 if __name__ == "__main__":
     main()
