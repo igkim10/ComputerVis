@@ -46,39 +46,49 @@ def image_patches(image,patch_size=(16, 16)):
      print(stitches)
      
 
-
+#DOES WORK
 def avg_filter(image,x_pos,y_pos):
      array = image[(x_pos -1) : (x_pos + 1), (y_pos-1): (y_pos + 1)]
-     avg = np.average(array)
-     return avg
-
-def med_filter(image,x_pos,y_pos):
-     array = image[(x_pos -1) : (x_pos + 1), (y_pos-1): (y_pos + 1)]
-     return np.median(array)
-
+     avg = int(np.average(array))
+     return avg 
 
 def filter_image(image):
      file = '/Users/iankim/Desktop/Python_proj/p6-computervis/' + image
      img = imageio.imread(file)
      num_cols = np.shape(img)[1]
      num_rows = np.shape(img)[0]
-
      for i in range(1,num_rows - 1):
           for j in range(1,num_cols - 1):
-               img[i][j] = med_filter(img,i,j)
-     print(img)
-     plt.imshow(img)
-     plt.show()
+               img[i][j] = avg_filter(img,i,j) 
+     return img
+
      
+def sharpen_image(image):
+     file = '/Users/iankim/Desktop/Python_proj/p6-computervis/' + image
+     img = imageio.imread(file) 
+     details = filter_image(image) - img
+     img =  img - details
+     plt.imshow(img,cmap=plt.get_cmap("gray"))
+     plt.show()
+
+def find_edges(image) :
+     img = filter_image(image)
+     gradient_x  =  np.gradient(img)[0]
+     gradient_y  = np.gradient(img)[1]
+     plt.imshow(gradient_x,cmap = plt.get_cmap("gray"))
+     plt.imshow(gradient_y,cmap = plt.get_cmap("gray"))
+     plt.show()
+    
 
 
 
    
 def main():
-     name = input('enter name of img')
+     name = input('enter name of img')     
      #combine_prokudin(name)
      #image_patches(name)
-     filter_image(name)
+     #sharpen_image(name)
+     find_edges(name)
      
 
 if __name__ == "__main__":
